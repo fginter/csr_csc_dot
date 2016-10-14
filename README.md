@@ -21,6 +21,20 @@ How to use:
 
     import csr_csc_dot as ccd
     ccs.csr_csc_dot_f(start,slice,m1,m2,out)
+    
+Full running example:
+
+    #Get some test matrices
+    m1=np.random.rand(5,500)
+    m2=np.random.rand(10,500)
+    m1_csr=csr_matrix(m1,dtype=np.float32)  #Sparse matrix 1
+    m2_csc=csc_matrix(m2,dtype=np.float32)  #Sparse_matrix 2
+    out=np.zeros((m1.shape[0],m2.shape[0]),np.float32)
+    #Dot
+    ccd.csr_csc_dot_f(0,m1_csr.shape[0],m1_csr,m2_csc,out)
+    print("Sparse dot result")
+    print(out)
+
 
 `m1` is float32 CSR of dimensionality (X,M)
 `m2` is float32 CSC of dimensionality (Y,M)
