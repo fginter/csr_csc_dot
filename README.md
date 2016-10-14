@@ -14,9 +14,19 @@ Matrix2 is sparse 1M x 1M matrix.
 And we need a dot product of M1 with M2, which is calculated 500 rows from M1 at a time, against
 the whole M2, so 500x1M.
 
-Disclaimer: This is an order of magnitude faster than what we could
-get from the csr.dot() but maybe some numpy magic would be as fast and
-we simply don't know about it.
+How to use:
+
+    python3 setup.py build_ext --inplace
 
 
+    import csr_csc_dot as ccd
+    ccs.csr_csc_dot_f(start,slice,m1,m2,out)
+
+`m1` is float32 CSR of dimensionality (X,M)
+`m2` is float32 CSC of dimensionality (Y,M)
+`out` is dense float32 of dimensionality (slice,Y)
+start is the first row of the slice
+slice is slice size, ie how many rows of m1 will be multiplied
+
+`csr_csc_dot_f(start,slice,m1,m2,out)` fills `out` with the equivalent of m1[start:start+slice].dot(m2.T)
 

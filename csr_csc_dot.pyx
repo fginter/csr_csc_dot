@@ -1,5 +1,15 @@
 #cython: language_level=3
 
+"""
+`m1` is float32 CSR of dimensionality (X,M)
+`m2` is float32 CSC of dimensionality (Y,M)
+`out` is dense float32 of dimensionality (slice,Y)
+start is the first row of the slice
+slice is slice size, ie how many rows of m1 will be multiplied
+
+`csr_csc_dot_f(start,slice,m1,m2,out)` fills `out` with the equivalent of m1[start:start+slice].dot(m2.T)
+"""
+
 import numpy as np
 cimport numpy as np
 import sys
@@ -8,12 +18,6 @@ ctypedef np.int32_t idx_type;
 ctypedef np.float32_t val_type;
 
 cdef extern void fast_dot(idx_type m1_start, idx_type m1_slice_len, idx_type *m1_row_ptr, idx_type *m1_indices, val_type *m1_data, idx_type *m2_col_ptr, idx_type *m2_indices, val_type *m2_data, val_type *out, idx_type out_col_number)
-
-#m1 is CSR
-#m2 is CSC
-#out is dense float32
-#start is slice beginning
-#slice is slice size
 
 def csr_csc_dot_f(start,slice,m1,m2, np.ndarray[np.float32_t,ndim=2,mode="c"] out):
 
