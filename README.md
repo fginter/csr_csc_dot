@@ -19,7 +19,7 @@ How to compile:
     python3 setup.py build_ext --inplace
 
 How to use:
-`csr_csc_dot_f(start,slice,m1,m2,out)` fills `out` with the equivalent of m1[start:start+slice].dot(m2.T)
+`csr_csc_dot_f(start,slice,m1,m2,out)` fills `out` with the equivalent of `m1[start:start+slice].dot(m2.T)`
 - `m1` is float32 CSR of dimensionality (X,M)
 - `m2` is float32 CSC of dimensionality (Y,M)
 - `out` is dense float32 of dimensionality (slice,Y)
